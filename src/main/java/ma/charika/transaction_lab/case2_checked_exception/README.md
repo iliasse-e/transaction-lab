@@ -3,10 +3,10 @@
 ## Objectif du cas
 Ce cas montre un piège très courant :
 
-Spring ne rollback pas sur les exceptions checked (Exception, IOException, SQLException, etc.) à moins de le lui demander explicitement.
+**Spring ne rollback pas sur les exceptions checked (``Exception``, ``IOException``, ``SQLException``, etc.) à moins de le lui demander explicitement.**
 
 Beaucoup de développeurs pensent que toute exception déclenche un rollback.
-C’est faux : seules les RuntimeException le font par défaut.
+C’est faux : seules les ``RuntimeException`` le font par défaut.
 
 
 ``RuntimeException``	→ ✔️ Oui

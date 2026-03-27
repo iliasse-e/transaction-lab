@@ -3,7 +3,7 @@
 ## Objectif du cas
 Ce cas illustre un piège très courant :
 
-Une exception est attrapée (catch) mais jamais relancée → Spring ne voit aucune erreur → la transaction ne rollback pas.
+**Une exception est attrapée (catch) mais jamais relancée → Spring ne voit aucune erreur → la transaction ne rollback pas.**
 
 C’est l’un des bugs transactionnels les plus fréquents dans les applications Spring Boot.
 
