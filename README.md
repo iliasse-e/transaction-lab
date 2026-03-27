@@ -220,6 +220,22 @@ Solutions :
 
 - verrouillage optimiste
 
+## Résumé des erreurs fréquentes
+
+| Problème | Pourquoi ça bloque |
+|---------|---------------------|
+| **Exceptions avalées** | L’exception est attrapée mais non relancée → Spring ne voit aucune erreur → pas de rollback |
+| **Exceptions checked** | Spring ne rollback pas sur `Exception` ou `IOException` par défaut |
+| **Self-invocation** | Appel interne `this.method()` contourne le proxy → `@Transactional` ignoré |
+| **Transactions trop larges** | Un échec tardif rollback tout, y compris des actions externes non rollbackables |
+| **Tests transactionnels** | Le rollback automatique masque des bugs liés aux commits réels |
+| **Microservices** | Pas de transaction globale entre services → incohérences si un service échoue |
+| **Async / @Async** | Le code async s’exécute hors transaction → rollback impossible |
+| **Méthodes privées** | Spring ne peut pas proxifier une méthode `private` → annotation ignorée |
+| **Appels dans les constructeurs** | Le proxy n’est pas encore créé → `@Transactional` ignoré |
+| **Problèmes de concurrence** | Deux transactions peuvent écraser les données de l’autre sans rollback |
+
+
 ## Le projet d'application
 
 Chaque projet est représenté par un package et contenant un fichier README decrivant la problématique à résoudre.
