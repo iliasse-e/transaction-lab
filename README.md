@@ -69,11 +69,7 @@ try {
     log.error("Erreur", e);
 }
 ```
-
-Ici, l’exception est attrapée mais jamais relancée.
-Spring ne voit aucune erreur → pas de rollback.
-
-C’est l’un des pièges les plus fréquents.
+**Une exception est attrapée (catch) mais jamais relancée (throw) → Spring ne voit aucune erreur → la transaction ne rollback pas.**
 
 ### 2. Exceptions checked → rollback non déclenché
 Spring rollback uniquement sur :
@@ -108,7 +104,7 @@ public void createUser() throws Exception {
 
 ### 3. Self-invocation → @Transactional ignoré
 Spring utilise un proxy pour gérer les transactions.
-Si une méthode annotée @Transactional est appelée depuis la même classe, le proxy n’intercepte pas l’appel.
+Si une méthode annotée ``@Transactional`` est appelée depuis la même classe, le proxy n’intercepte pas l’appel.
 
 Exemple :
 
@@ -122,7 +118,7 @@ public void saveUser() { ... }
 ```
 
 ### 4. Transactions trop larges → rollback involontaire
-Certains développeurs mettent @Transactional sur des méthodes énormes :
+Certains développeurs mettent ``@Transactional`` sur des méthodes énormes :
 
 - 5 écritures DB
 
@@ -148,11 +144,11 @@ Spring exécute souvent les tests avec :
 
 Cela masque :
 
-des problèmes de commit réel
+- des problèmes de commit réel
 
-des contraintes DB non testées
+- des contraintes DB non testées
 
-des comportements de concurrence invisibles
+- des comportements de concurrence invisibles
 
 ### 6. Transactions dans les microservices → fausse sécurité
 Beaucoup pensent que @Transactional fonctionne entre microservices.
